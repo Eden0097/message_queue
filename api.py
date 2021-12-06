@@ -12,7 +12,8 @@ class API:
         self.y = y
         self.requests_dict = {}
 
-    def run(self, message: str) -> str:
+    def run(self, message: str) -> bool:
+        """Run the API."""
         current_time = datetime.datetime.now().timestamp()
         requests_count = self._get_requests_from_window(current_time)
 
@@ -20,13 +21,14 @@ class API:
             self.requests_dict[current_time] = (
                 self.requests_dict.get(current_time, 0) + 1
             )
+            # Assume I do something with this message
             return True
         else:
             return False
 
     def _get_requests_from_window(self, current_time: float) -> int:
         """
-        Get the number of requests made from user_id in the last y seconds.
+        Get the number of requests made in the last y seconds.
 
         Delete entries older than y seconds.
         """
